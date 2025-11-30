@@ -43,7 +43,6 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
     spring.datasource.username=tu_usuario
     spring.datasource.password=tu_contraseña
     ```
-    
 
 3. Configura las propiedades de OAuth2 y Google Sign-In en `src/main/resources/application.properties`:
 
