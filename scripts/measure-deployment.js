@@ -1,4 +1,4 @@
-const GITHUB_REPO = "antruigon/oauth2-springboot-angular-googlesignin-poc";
+const GITHUB_REPO = "Misterpio0044/TrabajoFinalGPI2"; 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 async function getDeploymentMetrics() {
