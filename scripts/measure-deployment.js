@@ -1,25 +1,43 @@
-// scripts/measure-deployment.js
-const fetch = require('node-fetch'); 
-
-const GITHUB_REPO = "TU_USUARIO/TU_REPO";
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
+const GITHUB_REPO = "antruigon/oauth2-springboot-angular-googlesignin-poc";
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 async function getDeploymentMetrics() {
-  const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/runs?status=success`, {
-    headers: { 'Authorization': `Bearer ${GITHUB_TOKEN}` }
-  });
-  const data = await response.json();
-
-  console.log("--- Métricas de Tiempo de Despliegue (t) ---");
+  const headers = {
+    'Accept': 'application/vnd.github.v3+json'
+  };
   
-  data.workflow_runs.forEach(run => {
-    const start = new Date(run.created_at);
-    const end = new Date(run.updated_at);
-    // Cálculo de t: diferencia entre inicio y fin del pipeline
-    const durationMinutes = (end - start) / 1000 / 60; 
+  if (GITHUB_TOKEN) {
+    headers['Authorization'] = `Bearer ${GITHUB_TOKEN}`;
+  }
+
+  try {
+    const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/actions/runs?status=success`, { headers });
     
-    console.log(`Run: ${run.name} | Fecha: ${run.created_at} | Tiempo (t): ${durationMinutes.toFixed(2)} minutos`);
-  });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (data.workflow_runs.length === 0) {
+        console.log("No data found.");
+        return;
+    }
+
+    data.workflow_runs.slice(0, 5).forEach(run => {
+      const start = new Date(run.created_at);
+      const end = new Date(run.updated_at);
+      
+      const durationMinutes = (end - start) / 1000 / 60; 
+      
+      console.log(`Run: ${run.name}`);
+      console.log(`Date: ${start.toLocaleDateString()} ${start.toLocaleTimeString()}`);
+      console.log(`Deployment Time (t): ${durationMinutes.toFixed(2)} minutes`);
+      console.log("---------------------------------------------------");
+    });
+  } catch (error) {
+    console.error("Script failed:", error.message);
+  }
 }
 
 getDeploymentMetrics();
