@@ -1,21 +1,13 @@
 {
   "name": "trabajofinalgpi2",
   "version": "1.0.0",
-  "description": "Este proyecto de prueba demuestra la implementación de autenticación y autorización utilizando OAuth2 Server Authorization con generación de tokens, así como la integración con Google Sign-In. El proyecto utiliza las siguientes tecnologías:",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
     "metrics": "node scripts/measure-deployment.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Misterpio0044/TrabajoFinalGPI2.git"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Misterpio0044/TrabajoFinalGPI2/issues"
-  },
-  "homepage": "https://github.com/Misterpio0044/TrabajoFinalGPI2#readme"
+  "license": "ISC"
 }
