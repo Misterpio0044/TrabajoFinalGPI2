@@ -1,0 +1,62 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [authorization-server, resource-server]
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+        
+    - name: Grant execute permission for mvnw
+      run: chmod +x ./${{ matrix.service }}/mvnw
+
+    - name: Build Service
+      working-directory: ./${{ matrix.service }}
+      run: ./mvnw clean package -DskipTests
+
+    - name: Upload Backend Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.service }}-jar
+        path: ./${{ matrix.service }}/target/*.jar
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: ag-prueba-front/package-lock.json
+        
+    - name: Install Dependencies
+      working-directory: ./ag-prueba-front
+      run: npm ci
+      
+    - name: Build Angular
+      working-directory: ./ag-prueba-front
+      run: npm run build --configuration=production
+
+    - name: Upload Frontend Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-dist
+        path: ./ag-prueba-front/dist/
