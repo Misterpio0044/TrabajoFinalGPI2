@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+    "metrics": "node scripts/measure-deployment.js"
   },
   "repository": {
     "type": "git",
