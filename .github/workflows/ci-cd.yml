@@ -25,9 +25,14 @@ jobs:
     - name: Grant execute permission for mvnw
       run: chmod +x ./${{ matrix.service }}/mvnw
 
-    - name: Build Service
+    - name: Build Maven Artifact
       working-directory: ./${{ matrix.service }}
       run: ./mvnw clean package -DskipTests
+
+    # NUEVO: Construcción de la imagen Docker integrada en el pipeline
+    - name: Build Docker Image
+      working-directory: ./${{ matrix.service }}
+      run: docker build -t ${{ matrix.service }}:latest .
 
     - name: Upload Backend Artifact
       uses: actions/upload-artifact@v4
@@ -51,9 +56,14 @@ jobs:
       working-directory: ./ag-prueba-front
       run: npm ci
       
-    - name: Build Angular
+    - name: Build Angular App
       working-directory: ./ag-prueba-front
       run: npm run build --configuration=production
+
+    # NUEVO: Construcción de la imagen Docker del frontend
+    - name: Build Frontend Docker Image
+      working-directory: ./ag-prueba-front
+      run: docker build -t frontend:latest .
 
     - name: Upload Frontend Artifact
       uses: actions/upload-artifact@v4
