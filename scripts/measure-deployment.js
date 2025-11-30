@@ -1,8 +1,7 @@
 // scripts/measure-deployment.js
-const fetch = require('node-fetch'); // Asegúrate de tener node-fetch instalado o usa fetch nativo de Node 18+
+const fetch = require('node-fetch'); 
 
 const GITHUB_REPO = "TU_USUARIO/TU_REPO";
-// Token opcional si es público, necesario si es privado
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; 
 
 async function getDeploymentMetrics() {
