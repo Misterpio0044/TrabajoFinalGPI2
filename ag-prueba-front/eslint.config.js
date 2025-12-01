@@ -1,20 +1,23 @@
 // @ts-check
 const eslint = require("@eslint/js");
-const { defineConfig } = require("eslint/config");
 const tseslint = require("typescript-eslint");
 const angular = require("angular-eslint");
 
-module.exports = defineConfig([
+module.exports = tseslint.config(
   {
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,
-      tseslint.configs.recommended,
-      tseslint.configs.stylistic,
-      angular.configs.tsRecommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.stylistic,
+      ...angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      // --- NUEVA REGLA PARA EL OKR ---
+      "no-console": "error", // Esto bloqueará la PR si hay console.log
+      // -------------------------------
+
       "@angular-eslint/directive-selector": [
         "error",
         {
@@ -36,9 +39,9 @@ module.exports = defineConfig([
   {
     files: ["**/*.html"],
     extends: [
-      angular.configs.templateRecommended,
-      angular.configs.templateAccessibility,
+      ...angular.configs.templateRecommended,
+      ...angular.configs.templateAccessibility,
     ],
     rules: {},
   }
-]);
+);
