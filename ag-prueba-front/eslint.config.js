@@ -14,9 +14,7 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      // --- NUEVA REGLA PARA EL OKR ---
-      "no-console": "error", // Esto bloqueará la PR si hay console.log
-      // -------------------------------
+      "no-console": "error",
 
       "@angular-eslint/directive-selector": [
         "error",
