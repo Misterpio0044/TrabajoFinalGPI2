@@ -46,6 +46,7 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
 
 3. Configura las propiedades de OAuth2 y Google Sign-In en `src/main/resources/application.properties`:
 
+
     ```properties
     spring.security.oauth2.client.registration.google.client-id=TU_CLIENT_ID
     spring.security.oauth2.client.registration.google.client-secret=TU_CLIENT_SECRET
@@ -54,6 +55,7 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
 
 4. Ejecuta la aplicación Spring Boot:
 	1. Navega al directorio del Servidor de Autenticación:
+
 
     ```bash
     cd authorization-server
