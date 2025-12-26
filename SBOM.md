@@ -49,7 +49,6 @@ Tecnología: Java / Spring Boot
   - Licencia: EPL 2.0
   - Propósito: Herramienta de análisis de cobertura de código.
 
-
 4.2. INVENTARIO DE COMPONENTES (FRONTEND)
 -----------------------------------------
 Aplicación: ag-prueba-front
