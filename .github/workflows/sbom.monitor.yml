@@ -1,0 +1,37 @@
+name: SBOM Monitor
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-sbom-changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check for dependency changes
+        uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            sbom:
+              - 'SBOM.md'
+            dependencies:
+              - '**/pom.xml'
+              - '**/package.json'
+
+      - name: Post Warning Comment
+        if: steps.changes.outputs.sbom == 'true' || steps.changes.outputs.dependencies == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '### ⚠️ ALERTA DE SEGURIDAD (SBOM)\n\nSe ha detectado una modificación en el **SBOM** o en los archivos de dependencias.\n\n- **Acción requerida:** El equipo de seguridad debe revisar manualmente que las nuevas versiones/licencias cumplen con la normativa del proyecto.\n- **Estado:** Pendiente de validación.'
+            })
