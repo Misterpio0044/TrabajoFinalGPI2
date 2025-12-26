@@ -1,12 +1,3 @@
-4. GESTIÓN DE DEPENDENCIAS Y SEGURIDAD DE LA CADENA DE SUMINISTRO (SBOM)
-========================================================================
-
-Para dar cumplimiento al OKR "Reducir librerías externas sin actualizar" y garantizar 
-la seguridad y legalidad del software entregado (según normativa de licenciamiento), 
-se ha elaborado el siguiente Software Bill of Materials (SBOM). 
-
-Este inventario permite controlar la obsolescencia y asegurar que todas las licencias 
-de terceros sean compatibles con el proyecto.
 
 4.1. INVENTARIO DE COMPONENTES (BACKEND)
 ----------------------------------------
