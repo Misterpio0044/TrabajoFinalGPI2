@@ -27,6 +27,7 @@ jobs:
     - name: Grant execute permission for mvnw
       run: chmod +x ./${{ matrix.service }}/mvnw
 
+    # CAMBIO 1: Agregada configuración H2 para evitar el error de base de datos
     - name: Build and Analyze
       working-directory: ./${{ matrix.service }}
       env:
@@ -36,11 +37,34 @@ jobs:
         ./mvnw clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
         -Dsonar.organization=TU_ORGANIZACION \
         -Dsonar.host.url=https://sonarcloud.io \
-        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml \
+        -Dspring.datasource.url=jdbc:h2:mem:testdb \
+        -Dspring.datasource.driverClassName=org.h2.Driver \
+        -Dspring.datasource.username=sa \
+        -Dspring.datasource.password=password \
+        -Dspring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 
     - name: Build Docker Image
       working-directory: ./${{ matrix.service }}
       run: docker build -t ${{ matrix.service }}:latest .
+
+    # CAMBIO 2: Escáner de seguridad Trivy (OKR 4.2)
+    - name: Run Trivy Vulnerability Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '${{ matrix.service }}:latest'
+        format: 'table'
+        exit-code: '0'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+
+    # CAMBIO 3: Subida de binarios (OKR 4.3 - Adelantado)
+    - name: Upload Backend Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ matrix.service }}-jar
+        path: ./${{ matrix.service }}/target/*.jar
 
   build-frontend:
     runs-on: ubuntu-latest
@@ -86,3 +110,19 @@ jobs:
     - name: Build Frontend Docker Image
       working-directory: ./ag-prueba-front
       run: docker build -t frontend:latest .
+
+    - name: Run Trivy Vulnerability Scanner Frontend
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: 'frontend:latest'
+        format: 'table'
+        exit-code: '0'
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+
+    - name: Upload Frontend Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: frontend-dist
+        path: ./ag-prueba-front/dist/
