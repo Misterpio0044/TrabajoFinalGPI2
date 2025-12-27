@@ -57,8 +57,6 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
 4. Ejecuta la aplicación Spring Boot:
 	1. Navega al directorio del Servidor de Autenticación:
  
- 
- 
 
     ```bash
     cd authorization-server
