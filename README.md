@@ -1,6 +1,6 @@
-
-
 # Proyecto de Prueba OAuth2 con Spring Boot, Angular y Google Sign-In
+
+![App Status](https://img.shields.io/badge/Application_Status-UP-success?style=for-the-badge&logo=springboot&logoColor=white)
 
 Este proyecto de prueba demuestra la implementación de autenticación y autorización utilizando OAuth2 Server Authorization con generación de tokens, así como la integración con Google Sign-In. El proyecto utiliza las siguientes tecnologías:
 
@@ -33,7 +33,7 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/antruigon/oauth2-springboot-angular-googlesignin-poc.git
+    git clone [https://github.com/antruigon/oauth2-springboot-angular-googlesignin-poc.git](https://github.com/antruigon/oauth2-springboot-angular-googlesignin-poc.git)
     cd oauth2-springboot-angular-googlesignin-poc
     ```
 
@@ -47,7 +47,6 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
 
 3. Configura las propiedades de OAuth2 y Google Sign-In en `src/main/resources/application.properties`:
 
-
     ```properties
     spring.security.oauth2.client.registration.google.client-id=TU_CLIENT_ID
     spring.security.oauth2.client.registration.google.client-secret=TU_CLIENT_SECRET
@@ -55,24 +54,23 @@ Este proyecto de prueba demuestra la implementación de autenticación y autoriz
     ```
 
 4. Ejecuta la aplicación Spring Boot:
-	1. Navega al directorio del Servidor de Autenticación:
- 
+    1. Navega al directorio del Servidor de Autenticación:
 
     ```bash
     cd authorization-server
     ```
-	2. Ejecuta el servidor con
-	```bash
+    2. Ejecuta el servidor con
+    ```bash
     ./mvn spring-boot:run
     ```
 
-	3. Navega al directorio del Servidor de Recursos:
+    3. Navega al directorio del Servidor de Recursos:
 
     ```bash
     cd resource-server
     ```
-	4. Ejecuta el servidor con
-	```bash
+    4. Ejecuta el servidor con
+    ```bash
     ./mvnw spring-boot:run
     ```
 
