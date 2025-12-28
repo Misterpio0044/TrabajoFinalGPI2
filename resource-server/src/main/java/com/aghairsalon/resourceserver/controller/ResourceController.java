@@ -27,7 +27,6 @@ public class ResourceController {
     @GetMapping("/test-performance")
     public ResponseEntity<String> testPerformance() {
         try {
-            // AQUÍ ESTÁ EL TRUCO: Simulamos que el servidor es lento (500ms)
             Thread.sleep(500); 
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
