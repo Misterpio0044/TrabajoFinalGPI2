@@ -24,6 +24,16 @@ public class ResourceController {
 
     private final PruebaRsrcService pruebaRsrcService;
 
+    @GetMapping("/test-performance")
+    public ResponseEntity<String> testPerformance() {
+        try {
+            // AQUÍ ESTÁ EL TRUCO: Simulamos que el servidor es lento (500ms)
+            Thread.sleep(500); 
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return ResponseEntity.ok("Test OK");
+    }
     @GetMapping("/user")
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'OIDC_USER')")
     public ResponseEntity<MessageDTO> user(Authentication authentication) {
