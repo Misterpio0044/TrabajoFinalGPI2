@@ -31,6 +31,14 @@ jobs:
       working-directory: ./${{ matrix.service }}
       run: ./mvnw clean package -DskipTests
 
+    - name: Start App and Measure Latency
+      if: matrix.service == 'resource-server'
+      working-directory: ./${{ matrix.service }}
+      run: |
+        java -jar target/*.jar &
+        sleep 20
+        curl -o /dev/null -s -w "Tiempo de respuesta: %{time_total}s\n" http://localhost:8080/resource/test-performance
+
     - name: Analyze with SonarCloud
       working-directory: ./${{ matrix.service }}
       env:
