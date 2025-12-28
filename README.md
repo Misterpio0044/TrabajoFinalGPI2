@@ -2,6 +2,8 @@
 
 ![App Status](https://img.shields.io/badge/Application_Status-UP-success?style=for-the-badge&logo=springboot&logoColor=white)
 
+![CI/CD Pipeline](https://github.com/Misterpio0044/TrabajoFinalGPI2/actions/workflows/ci-cd.yml/badge.svg)
+
 Este proyecto de prueba demuestra la implementación de autenticación y autorización utilizando OAuth2 Server Authorization con generación de tokens, así como la integración con Google Sign-In. El proyecto utiliza las siguientes tecnologías:
 
 - **Spring Boot**: Para implementar el servidor de autorización y el recurso.
